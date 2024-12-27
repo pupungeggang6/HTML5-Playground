@@ -54,3 +54,45 @@ function findNeighbor(board, row, col) {
 
     return {'Board': tempBoard, 'Num': num}
 }
+
+function popBlock(board, selected) {
+    for (let i = 0; i < selected.length; i++) {
+        for (let j = 0; j < selected[i].length; j++) {
+            if (selected[i][j] === 1) {
+                board[i][j] = -1
+            }
+        }
+    }
+
+    for (let i = 0; i < board.length - 1; i++) {
+        board = handleFall(board)
+    }
+
+    boardRefill(board)
+
+    return board
+}
+
+function handleFall(board) {
+    for (let i = board.length - 2; i >= 0; i--) {
+        for (let j = 0; j < board[i].length; j++) {
+            if (board[i + 1][j] === -1) {
+                let temp = board[i + 1][j]
+                board[i + 1][j] = board[i][j]
+                board[i][j] = temp
+            }
+        }
+    }
+
+    return board
+}
+
+function boardRefill(board) {
+    for (let i = 0; i < board.length; i++) {
+        for (let j = 0; j < board[i].length; j++) {
+            if (board[i][j] === -1) {
+                board[i][j] = Math.floor(Math.random() * 4)
+            }
+        }
+    }
+}

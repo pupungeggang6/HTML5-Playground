@@ -32,6 +32,8 @@ function render() {
                 context.fillStyle = 'Green'
             } else if (board[i][j] === 3) {
                 context.fillStyle = 'Blue'
+            } else {
+                context.fillStyle = 'White'
             }
             context.fillRect(j * 40, 40 + i * 40, 40, 40)
         }
@@ -68,8 +70,13 @@ function mouseUp(event) {
             board = createBoard()
             boardSelected = resetBoard()
         } else {
-            boardSelected = findNeighbor(board, row, col)['Board']
-            neighborNum = findNeighbor(board, row, col)['Num']
+            if (boardSelected[row][col] === 1) {
+                board = popBlock(board, boardSelected)
+                boardSelected = resetBoard()
+            } else {
+                boardSelected = findNeighbor(board, row, col)['Board']
+                neighborNum = findNeighbor(board, row, col)['Num']
+            }
         }
     }
 }
