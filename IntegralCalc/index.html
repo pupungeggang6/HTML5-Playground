@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Integral Calculatior</title>
+        <title>Integral Calculator</title>
     </head>
     <body>
         <div id="Main">
             <input type="text" id="Function"/>
+            <input type="text" id="Var"/>
             <input type="number" id="Start"/>
             <input type="number" id="End"/>
-            <button>Calc</button>
+            <input type="number" id="Step"/>
+            <button onclick="onButtonClick()">Calc</button>
             <div id="Result"></div>
         </div>
         <script src="Var.js"></script>
