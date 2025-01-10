@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Graphing</title>
+        <style>
+            .S {
+                border: 2px solid black;
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                margin: auto;
+                height: 95%;
+            }
+
+            #Expr {
+                position: absolute;
+                top: 4px;
+                left: 4px;
+            }
+
+            #Result {
+                position: absolute;
+                top: 44px;
+                left: 4px;
+            }
+        </style>
+    </head>
+    <body>
+        <canvas class="S" id="ScreenNumber" width="800" height="600"></canvas>
+        <canvas class="S" id="Screen" width="800" height="600"></canvas>
+        <script src="Var.js"></script>
+        <script src="Const.js"></script>
+        <script src="Function.js"></script>
+        <script src="Main.js"></script>
+
+        <div id="Expr">
+            f(x) =
+            <input type="text" id="ExprText"/>
+        </div>
+        <div id="Result">
+            <button onclick="plot()">Plot</button>
+        </div>
+    </body>
+</html>
