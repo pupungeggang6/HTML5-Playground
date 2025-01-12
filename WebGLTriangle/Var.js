@@ -13,6 +13,7 @@ let ul = {
 let al = {
 }
 
+let vao
 let vbo
 let bc
 let bt

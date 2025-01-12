@@ -24,18 +24,18 @@ function renderInit() {
     gl.lineWidth(2)
 
     gl.useProgram(program)
+    gl.enableVertexAttribArray(al.vertex)
+    gl.enableVertexAttribArray(al.color)
 }
 
 function drawTriangle() {
     gl.bindBuffer(gl.ARRAY_BUFFER, vbo)
     gl.vertexAttribPointer(al.vertex, 3, gl.FLOAT, false, 0, 0)
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([a, 0.8, 0.0, -0.8, -0.8, 0.0, 0.8, -0.8, 0.0]), gl.STATIC_DRAW)
-    gl.enableVertexAttribArray(al.vertex)
 
     gl.bindBuffer(gl.ARRAY_BUFFER, bc)
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0]), gl.STATIC_DRAW)
     gl.vertexAttribPointer(al.color, 3, gl.FLOAT, false, 0, 0)
-    gl.enableVertexAttribArray(al.color)
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0]), gl.STATIC_DRAW)
     
     gl.drawArrays(gl.TRIANGLES, 0, 3)
 }
