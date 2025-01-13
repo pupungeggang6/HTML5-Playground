@@ -10,7 +10,6 @@ function main() {
 }
 
 function loop() {
-    renderInit()
-    drawTriangle()
+    render()
     progLoop = requestAnimationFrame(loop)
 }
