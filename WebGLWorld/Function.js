@@ -14,6 +14,8 @@ function glInit() {
     lMColor = gl.getAttribLocation(program, 'a_color')
     lMScale = gl.getAttribLocation(program, 'a_model_scale')
     lMTranslate = gl.getAttribLocation(program, 'a_model_translate')
+    lCTranslate = gl.getUniformLocation(program, 'u_camera_translate')
+    lCProjection = gl.getUniformLocation(program, 'u_camera_projection')
 
     vao = gl.createVertexArray()
     vbo = gl.createBuffer()
@@ -39,10 +41,41 @@ function render() {
     gl.enable(gl.DEPTH_TEST)
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
     gl.useProgram(program)
+
+    gl.uniform3f(lCTranslate, camera.translate.x, camera.translate.y, camera.translate.z)
+    gl.uniformMatrix4fv(lCProjection, false, glOrtho(-1, 1, -1, 1, -0.1, -2.1))
+
     gl.bindVertexArray(vao)
     gl.bindBuffer(gl.ARRAY_BUFFER, vbo)
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([].concat(...vData)), gl.STATIC_DRAW)
     gl.bindBuffer(gl.ARRAY_BUFFER, vtr)
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([].concat(...tData)), gl.STATIC_DRAW)
     gl.drawArrays(gl.TRIANGLES, 0, vData.length * 3)
+}
+
+function glOrtho(l, r, b, t, f, n) {
+    return [
+        2 / (r - l), 0, 0, (l + r) / (l - r),
+        0, 2 / (t - b), 0, (b + t) / (b - t),
+        0, 0, 2 / (n - f), (f + n) / (f - n),
+        0, 0, 0, 1,
+    ]
+}
+
+function moveCamera() {
+    if (keyPressed['Left'] === true) {
+        camera.translate.x += -delta / 1000
+    }
+
+    if (keyPressed['Right'] === true) {
+        camera.translate.x += delta / 1000
+    }
+
+    if (keyPressed['Up'] === true) {
+        camera.translate.z += -delta / 1000
+    }
+    
+    if (keyPressed['Down'] === true) {
+        camera.translate.z += delta / 1000
+    }
 }
