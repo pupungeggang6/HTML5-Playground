@@ -1,0 +1,48 @@
+function glInit() {
+    vShader = gl.createShader(gl.VERTEX_SHADER)
+    gl.shaderSource(vShader, vSource)
+    gl.compileShader(vShader)
+    fShader = gl.createShader(gl.FRAGMENT_SHADER)
+    gl.shaderSource(fShader, fSource)
+    gl.compileShader(fShader)
+    program = gl.createProgram()
+    gl.attachShader(program, vShader)
+    gl.attachShader(program, fShader)
+    gl.linkProgram(program)
+
+    lMPosition = gl.getAttribLocation(program, 'a_position')
+    lMColor = gl.getAttribLocation(program, 'a_color')
+    lMScale = gl.getAttribLocation(program, 'a_model_scale')
+    lMTranslate = gl.getAttribLocation(program, 'a_model_translate')
+
+    vao = gl.createVertexArray()
+    vbo = gl.createBuffer()
+    vtr = gl.createBuffer()
+    gl.bindVertexArray(vao)
+    gl.bindBuffer(gl.ARRAY_BUFFER, vbo)
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([].concat(...vData)), gl.STATIC_DRAW)
+    gl.vertexAttribPointer(lMPosition, 3, gl.FLOAT, false, 6 * 4, 0)
+    gl.enableVertexAttribArray(lMPosition)
+    gl.vertexAttribPointer(lMColor, 3, gl.FLOAT, false, 6 * 4, 3 * 4)
+    gl.enableVertexAttribArray(lMColor)
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, vtr)
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([].concat(...tData)), gl.STATIC_DRAW)
+    gl.vertexAttribPointer(lMScale, 3, gl.FLOAT, false, 6 * 4, 0)
+    gl.enableVertexAttribArray(lMScale)
+    gl.vertexAttribPointer(lMTranslate, 3, gl.FLOAT, false, 6 * 4, 3 * 4)
+    gl.enableVertexAttribArray(lMTranslate)
+}
+
+function render() {
+    gl.clearColor(0.0, 0.0, 0.0, 1.0)
+    gl.enable(gl.DEPTH_TEST)
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
+    gl.useProgram(program)
+    gl.bindVertexArray(vao)
+    gl.bindBuffer(gl.ARRAY_BUFFER, vbo)
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([].concat(...vData)), gl.STATIC_DRAW)
+    gl.bindBuffer(gl.ARRAY_BUFFER, vtr)
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([].concat(...tData)), gl.STATIC_DRAW)
+    gl.drawArrays(gl.TRIANGLES, 0, vData.length * 3)
+}
