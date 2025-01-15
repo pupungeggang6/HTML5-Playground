@@ -1,5 +1,6 @@
 let canvas
 let gl
+let d
 
 let programLoop
 let frameCurrent
@@ -49,3 +50,10 @@ let camera = {
     left: {x: -1, y: 0, z: 0},
     right: {x: 1, y: 0, z: 0},
 }
+
+let cameraRotateMat = [
+    1.0, 0.0, 0.0, 0.0,
+    0.0, 1.0, 0.0, 0.0,
+    0.0, 0.0, 1.0, 0.0,
+    0.0, 0.0, 0.0, 1.0
+]

@@ -16,6 +16,7 @@ function glInit() {
     lMTranslate = gl.getAttribLocation(program, 'a_model_translate')
     lCTranslate = gl.getUniformLocation(program, 'u_camera_translate')
     lCProjection = gl.getUniformLocation(program, 'u_camera_projection')
+    lCRotate = gl.getUniformLocation(program, 'u_camera_rotate')
 
     vao = gl.createVertexArray()
     vbo = gl.createBuffer()
@@ -43,6 +44,7 @@ function render() {
     gl.useProgram(program)
 
     gl.uniform3f(lCTranslate, camera.translate.x, camera.translate.y, camera.translate.z)
+    gl.uniformMatrix4fv(lCRotate, false, cameraRotateMat)
     gl.uniformMatrix4fv(lCProjection, false, glOrtho(-1, 1, -1, 1, -0.1, -2.1))
 
     gl.bindVertexArray(vao)
@@ -64,18 +66,31 @@ function glOrtho(l, r, b, t, f, n) {
 
 function moveCamera() {
     if (keyPressed['Left'] === true) {
-        camera.translate.x += -delta / 1000
+        camera.translate.x += camera.left.x * delta / 1000
+        camera.translate.y += camera.left.y * delta / 1000
+        camera.translate.z += camera.left.z * delta / 1000
     }
 
     if (keyPressed['Right'] === true) {
-        camera.translate.x += delta / 1000
+        camera.translate.x += camera.right.x * delta / 1000
+        camera.translate.y += camera.right.y * delta / 1000
+        camera.translate.z += camera.right.z * delta / 1000
     }
 
     if (keyPressed['Up'] === true) {
-        camera.translate.z += -delta / 1000
+        camera.translate.x += camera.foward.x * delta / 1000
+        camera.translate.y += camera.foward.y * delta / 1000
+        camera.translate.z += camera.foward.z * delta / 1000
     }
     
     if (keyPressed['Down'] === true) {
-        camera.translate.z += delta / 1000
+        camera.translate.x += camera.backward.x * delta / 1000
+        camera.translate.y += camera.backward.y * delta / 1000
+        camera.translate.z += camera.backward.z * delta / 1000
     }
+}
+
+function rotateCamera(vec) {
+    cameraRotateMat = matRotate(1, vec.x / 100, cameraRotateMat)
+    cameraRotateMat = matRotate(0, vec.y / 100, cameraRotateMat) 
 }

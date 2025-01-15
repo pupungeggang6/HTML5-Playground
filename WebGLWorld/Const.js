@@ -5,7 +5,7 @@ const vSource = `#version 300 es
     in vec3 a_model_scale;
     in vec3 a_model_translate;
     
-    uniform vec4 u_camera_rotate;
+    uniform mat4 u_camera_rotate;
     uniform vec3 u_camera_translate;
     uniform mat4 u_camera_projection;
 
@@ -29,6 +29,7 @@ const vSource = `#version 300 es
 
         final_position *= model_scale; 
         final_position *= model_translate;
+        final_position *= u_camera_rotate;
         final_position *= camera_translate;
         final_position *= u_camera_projection;
 
