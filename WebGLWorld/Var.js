@@ -49,6 +49,8 @@ let camera = {
     backward: {x: 0, y: 0, z: 1},
     left: {x: -1, y: 0, z: 0},
     right: {x: 1, y: 0, z: 0},
+    turn: 0,
+    vertical: 0,
 }
 
 let cameraRotateMat = [

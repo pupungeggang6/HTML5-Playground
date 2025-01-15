@@ -91,6 +91,9 @@ function moveCamera() {
 }
 
 function rotateCamera(vec) {
-    cameraRotateMat = matRotate(1, vec.x / 100, cameraRotateMat)
-    cameraRotateMat = matRotate(0, vec.y / 100, cameraRotateMat) 
+    camera.turn += vec.x / 4
+    camera.vertical += vec.y / 4
+    cameraRotateMat = [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0]
+    cameraRotateMat = matRotate(0, camera.vertical / 100, cameraRotateMat)
+    cameraRotateMat = matRotate(1, camera.turn / 100, cameraRotateMat)
 }
