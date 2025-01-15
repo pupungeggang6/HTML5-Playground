@@ -35,6 +35,8 @@ function glInit() {
     gl.enableVertexAttribArray(lMScale)
     gl.vertexAttribPointer(lMTranslate, 3, gl.FLOAT, false, 6 * 4, 3 * 4)
     gl.enableVertexAttribArray(lMTranslate)
+
+    cameraProjectionMat = glOrtho(-1.6, 1.6, -1, 1, -0.1, -2.1)
 }
 
 function render() {
@@ -45,7 +47,7 @@ function render() {
 
     gl.uniform3f(lCTranslate, camera.translate.x, camera.translate.y, camera.translate.z)
     gl.uniformMatrix4fv(lCRotate, false, cameraRotateMat)
-    gl.uniformMatrix4fv(lCProjection, false, glOrtho(-1, 1, -1, 1, -0.1, -2.1))
+    gl.uniformMatrix4fv(lCProjection, false, cameraProjectionMat)
 
     gl.bindVertexArray(vao)
     gl.bindBuffer(gl.ARRAY_BUFFER, vbo)

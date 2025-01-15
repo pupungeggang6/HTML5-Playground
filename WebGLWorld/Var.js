@@ -53,6 +53,8 @@ let camera = {
     vertical: 0,
 }
 
+let cameraProjectionMat
+
 let cameraRotateMat = [
     1.0, 0.0, 0.0, 0.0,
     0.0, 1.0, 0.0, 0.0,
