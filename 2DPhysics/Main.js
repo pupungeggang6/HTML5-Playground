@@ -28,11 +28,37 @@ function loop() {
 }
 
 function keyDown(event) {
-    let key = event.key 
+    let key = event.key
+
+    if (key === 'w') {
+        keyPress['Up'] = true
+    }
+    if (key === 'a') {
+        keyPress['Left'] = true
+    }
+    if (key === 's') {
+        keyPress['Down'] = true
+    }
+    if (key === 'd') {
+        keyPress['Right'] = true
+    }
 }
 
 function keyUp(event) {
     let key = event.key
+    
+    if (key === 'w') {
+        keyPress['Up'] = false 
+    }
+    if (key === 'a') {
+        keyPress['Left'] = false
+    }
+    if (key === 's') {
+        keyPress['Down'] = false
+    }
+    if (key === 'd') {
+        keyPress['Right'] = false
+    }
 }
 
 function rightClick() {
