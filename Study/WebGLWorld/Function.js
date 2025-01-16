@@ -80,9 +80,9 @@ function moveCamera() {
     }
 
     if (keyPressed['Up'] === true) {
-        camera.translate.x += camera.foward.x * delta / 1000
-        camera.translate.y += camera.foward.y * delta / 1000
-        camera.translate.z += camera.foward.z * delta / 1000
+        camera.translate.x += camera.forward.x * delta / 1000
+        camera.translate.y += camera.forward.y * delta / 1000
+        camera.translate.z += camera.forward.z * delta / 1000
     }
     
     if (keyPressed['Down'] === true) {
@@ -98,4 +98,18 @@ function rotateCamera(vec) {
     cameraRotateMat = [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0]
     cameraRotateMat = matRotate(0, camera.vertical / 100, cameraRotateMat)
     cameraRotateMat = matRotate(1, camera.turn / 100, cameraRotateMat)
+    camera.forward = vecNormalize(vecProjectionXZ(cameraTurnVec(camera.forward, camera.turn)))
+    camera.backward.x = -camera.forward.x
+    camera.backward.z = -camera.forward.z
+    camera.left.x = -camera.forward.z
+    camera.left.z = camera.forward.x
+    camera.right.x = camera.forward.z
+    camera.right.z = -camera.forward.x
+}
+
+function cameraTurnVec(vec, angle) {
+    let s = Math.sin(angle)
+    let c = Math.cos(angle)
+
+    return {x: s * vec.z + c * vec.x, y: 0, z: c * vec.z - s * vec.x}
 }
